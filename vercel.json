@@ -1,0 +1,18 @@
+{
+  "buildCommand": "cd Frontend_Study_plan_app && npm run build",
+  "outputDirectory": "Frontend_Study_plan_app/dist",
+  "installCommand": "cd Frontend_Study_plan_app && npm install",
+  "functions": {
+    "api/index.py": {
+      "includeFiles": "backend/**"
+    }
+  },
+  "rewrites": [
+    { "source": "/health", "destination": "/api/index.py" },
+    { "source": "/auth/:path*", "destination": "/api/index.py" },
+    { "source": "/plans", "destination": "/api/index.py" },
+    { "source": "/plans/:path*", "destination": "/api/index.py" },
+    { "source": "/sessions", "destination": "/api/index.py" },
+    { "source": "/sessions/:path*", "destination": "/api/index.py" }
+  ]
+}
