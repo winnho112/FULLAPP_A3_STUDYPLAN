@@ -70,16 +70,8 @@ app.include_router(sessions_router)
 
 
 # ----------------------------------------------------------------
-# Root & Health routes
+# Health route
 # ----------------------------------------------------------------
-@app.get("/")
-def root():
-    return {
-        "message": "StudyPlan API is running",
-        "docs": "http://127.0.0.1:8000/docs",
-    }
-
-
 @app.get("/health")
 def health():
     """Quick health check — also pings the database."""
@@ -93,6 +85,19 @@ def health():
         return {"status": "healthy", "database": "connected"}
     except Exception as exc:
         return {"status": "unhealthy", "database": str(exc)}
+
+
+# ----------------------------------------------------------------
+# Frontend - serve the built React SPA (Vite output: Frontend_Study_plan_app/dist)
+# Per Vercel docs: app.frontend() is low-priority; every API route wins over it.
+# ----------------------------------------------------------------
+app.frontend(
+    "/",
+    directory=os.path.abspath(os.path.join(
+        os.path.dirname(__file__), "..", "..", "Frontend_Study_plan_app", "dist")),
+    fallback="index.html",
+    check_dir=False,
+)
 
 
 # ----------------------------------------------------------------

@@ -1,18 +1,9 @@
 {
   "buildCommand": "cd Frontend_Study_plan_app && npm install && npm run vercel-build",
-  "outputDirectory": "Frontend_Study_plan_app/dist",
   "functions": {
     "api/index.py": {
       "includeFiles": "backend/**",
       "maxDuration": 30
     }
-  },
-  "rewrites": [
-    { "source": "/health", "destination": "/api/index.py" },
-    { "source": "/auth/:path*", "destination": "/api/index.py" },
-    { "source": "/plans", "destination": "/api/index.py" },
-    { "source": "/plans/:path*", "destination": "/api/index.py" },
-    { "source": "/sessions", "destination": "/api/index.py" },
-    { "source": "/sessions/:path*", "destination": "/api/index.py" }
-  ]
+  }
 }
