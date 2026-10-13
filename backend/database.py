@@ -3,16 +3,26 @@ database.py — PostgreSQL connection and table initialisation
 """
 
 import os
-import psycopg2
-from dotenv import load_dotenv
 
-load_dotenv()
+try:
+    import psycopg2
+    HAS_PSYCOPG2 = True
+except ImportError:
+    HAS_PSYCOPG2 = False
+
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 
 def get_connection():
     """Return a new psycopg2 connection to the Supabase PostgreSQL database."""
+    if not HAS_PSYCOPG2:
+        raise RuntimeError("psycopg2 is not installed. Run: pip install psycopg2-binary")
     return psycopg2.connect(DATABASE_URL)
 
 

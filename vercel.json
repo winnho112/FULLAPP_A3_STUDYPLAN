@@ -4,15 +4,34 @@
   "installCommand": "cd Frontend_Study_plan_app && npm install",
   "functions": {
     "api/index.py": {
-      "includeFiles": "backend/**"
+      "includeFiles": "backend/**",
+      "runtime": "python3.12"
     }
   },
   "rewrites": [
-    { "source": "/health", "destination": "/api/index.py" },
-    { "source": "/auth/:path*", "destination": "/api/index.py" },
-    { "source": "/plans", "destination": "/api/index.py" },
-    { "source": "/plans/:path*", "destination": "/api/index.py" },
-    { "source": "/sessions", "destination": "/api/index.py" },
-    { "source": "/sessions/:path*", "destination": "/api/index.py" }
+    {
+      "source": "/health",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/auth/:path*",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/plans",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/plans/:path*",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/sessions",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/sessions/:path*",
+      "destination": "/api/index.py"
+    }
   ]
 }

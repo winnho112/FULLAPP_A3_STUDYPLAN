@@ -4,8 +4,17 @@ Uses Supabase Auth REST API for signup/login.
 """
 
 import os
-import requests
-import jwt
+
+try:
+    import requests
+except ImportError:
+    requests = None
+
+try:
+    import jwt
+except ImportError:
+    jwt = None
+
 from fastapi import APIRouter, Header, HTTPException
 from models import SignupRequest, LoginRequest
 
@@ -37,6 +46,8 @@ def get_current_user(authorization: str = Header(...)) -> str:
     token = authorization.replace("Bearer ", "")
 
     try:
+        if jwt is None:
+            raise HTTPException(status_code=500, detail="PyJWT is not installed")
         # Decode without signature verification (learning only!)
         # In production: jwt.decode(token, SECRET, algorithms=["HS256"])
         payload = jwt.decode(
@@ -73,6 +84,8 @@ def signup(body: SignupRequest):
         "data": {"full_name": body.full_name},
     }
 
+    if requests is None:
+        raise HTTPException(status_code=500, detail="requests library is not installed")
     resp = requests.post(url, json=payload, headers=headers)
 
     if resp.status_code != 200:
@@ -108,6 +121,8 @@ def login(body: LoginRequest):
         "password": body.password,
     }
 
+    if requests is None:
+        raise HTTPException(status_code=500, detail="requests library is not installed")
     resp = requests.post(url, json=payload, headers=headers)
 
     if resp.status_code != 200:
