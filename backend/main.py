@@ -25,7 +25,10 @@ from routes.sessions import router as sessions_router
 async def lifespan(app: FastAPI):
     """Startup: initialise database tables. Shutdown: nothing to clean up."""
     print("Starting StudyPlan API...")
-    database.init_db()
+    try:
+        database.init_db()
+    except Exception as exc:
+        print(f"WARNING: Database init failed (will retry on first request): {exc}")
     yield
     print("StudyPlan API shutting down.")
 
@@ -42,11 +45,16 @@ app = FastAPI(
 
 
 # ----------------------------------------------------------------
-# CORS — allow the React dev server
+# CORS — allow both local dev and Vercel deployment
 # ----------------------------------------------------------------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "https://astudyplan.vercel.app",
+        "https://astudyplan-bjcix3e6f-no-team-at-all.vercel.app",
+    ],
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
