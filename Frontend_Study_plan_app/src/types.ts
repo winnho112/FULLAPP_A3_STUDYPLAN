@@ -18,6 +18,7 @@ export interface AssignmentData {
 
 /** Weekly availability in hours per day */
 export interface AvailabilityData {
+  [key: string]: number;
   monday: number;
   tuesday: number;
   wednesday: number;
