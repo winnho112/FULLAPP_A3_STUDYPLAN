@@ -4,7 +4,8 @@
   "installCommand": "cd Frontend_Study_plan_app && npm install",
   "functions": {
     "api/index.py": {
-      "includeFiles": "backend/**"
+      "includeFiles": "backend/**",
+      "maxDuration": 30
     }
   },
   "rewrites": [
