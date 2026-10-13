@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd Frontend_Study_plan_app && npm run build",
+  "buildCommand": "cd Frontend_Study_plan_app && npm run vercel-build",
   "outputDirectory": "Frontend_Study_plan_app/dist",
   "installCommand": "cd Frontend_Study_plan_app && npm install",
   "functions": {
